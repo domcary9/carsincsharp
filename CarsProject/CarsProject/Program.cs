@@ -4,7 +4,7 @@ namespace CarsProject
 {
     internal class Program
     {
-        List<Car> cars = new List<Car>();
+        static List<Car> cars = new List<Car>();
 
         static void Main(string[] args)
         {
@@ -20,9 +20,23 @@ namespace CarsProject
                 Console.WriteLine(" 3. List all cars");
                 Console.WriteLine(" 4. Quit");
                 input = Console.ReadLine();
+                switch (input)
+                {
+                    case "1":
+                        AddCar();
+                        break;
+                    case "2":
+                        DeleteCar();
+                        break;
+                    case "3":
+                        ListCars();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
-        public void AddCar()
+        public static void AddCar()
         {
             Console.WriteLine("Enter the year of the vehicle:");
             Car car = new Car();
@@ -41,17 +55,25 @@ namespace CarsProject
             double price = double.Parse(Console.ReadLine());
             car.price = price;
             cars.Add(car);
-            Console.WriteLine("Your case is a: " + car.year.ToString() + " " + car.make + " " + car.model);
+            Console.WriteLine("Your car is a: " + car.year.ToString() + " " + car.make + " " + car.model);
         }
-        public void DeleteCar()
+        public static void DeleteCar()
         {
-
+            ListCars();
+            //ask the user which car to delete
+            Console.WriteLine("Enter the number of the vehicle you want to remove:");
+            //delete that car from the list
+            int carToRemove = int.Parse(Console.ReadLine());
+            cars.RemoveAt(carToRemove);
+            Console.WriteLine("Car removed");
         }
-        public void ListCars()
+        public static void ListCars()
         {
+            int i = 1;
             foreach (Car car in cars)
             {
-                Console.WriteLine(car.year.ToString() + " " + car.make + " " + car.model + " " + car.price.ToString());
+                Console.WriteLine("Car#" + i + " " + car.year.ToString() + " " + car.make + " " + car.model + " " + car.price.ToString());
+                i++;
             }
         }
     }
